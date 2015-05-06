@@ -25,15 +25,15 @@ public class HomeController {
 		UpdateBalance ub = new UpdateBalance();
 		ub.setBalance(new BigDecimal(1000000));
 		ub.setDebAmount(new BigDecimal(1000));
-		ub.setGroupname("melakukan sesuatu");
+		ub.setGroupname("merah");
 		ub.setIdPos(0);
 		ub.setIsmustdone("true");
 		ub.setMaxRetry(5);
 		ub.setPriority("max");
 		ub.setRetrycount(0);
-		ub.setTimestamp(Calendar.getInstance().getTimeInMillis());
-		ub.setIdRefrence(idRefrence);
-		wsrc.post("", new UpdateBalance(), String.class, new HashMap<String, Object>());
+//		ub.setTimestamp(Calendar.getInstance().getTimeInMillis());
+		ub.setIdRefrence("");
+		wsrc.post("http://192.168.137.118:8030/PutDataIntoQueue", ub, String.class, new HashMap<String, Object>());
 		return null;
 		
 	}

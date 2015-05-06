@@ -10,39 +10,39 @@ import java.math.BigDecimal;
  * The persistent class for the update_balance database table.
  * 
  */
-@Entity
-@Table(name="update_balance")
-@NamedQuery(name="UpdateBalance.findAll", query="SELECT u FROM UpdateBalance u")
+//@Entity
+//@Table(name="update_balance")
+//@NamedQuery(name="UpdateBalance.findAll", query="SELECT u FROM UpdateBalance u")
 public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private BigDecimal balance;
 
-	@Column(name="deb_amount")
+//	@Column(name="deb_amount")
 	private BigDecimal debAmount;
 
 	private String groupname;
 
-	@Column(name="id_pos")
+//	@Column(name="id_pos")
 	private int idPos;
 
-	@Lob
-	@Column(name="id_refrence")
+//	@Lob
+//	@Column(name="id_refrence")
 	private String idRefrence;
 
 	private String ismustdone;
 
-	@Column(name="kredit_amount")
+//	@Column(name="kredit_amount")
 	private BigDecimal kreditAmount;
 
-	@Column(name="max_retry")
+//	@Column(name="max_retry")
 	private int maxRetry;
 
 	private String priority;
 
 	private int retrycount;
 
-	private long timestamp;
+	private Timestamp timestamp;
 	
 	
 	public UpdateBalance() {
@@ -128,11 +128,11 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.retrycount = retrycount;
 	}
 
-	public long getTimestamp() {
+	public Timestamp getTimestamp() {
 		return this.timestamp;
 	}
 
-	public long setTimestamp(long timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 
