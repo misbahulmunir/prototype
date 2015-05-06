@@ -74,8 +74,8 @@ public abstract class IUpdateBalance {
 	public void setRetrycount(int retrycount) {
 	}
 
-	public Timestamp getTimestamp() {
-		return null;
+	public long getTimestamp() {
+		return 0;
 	}
 
 	public void setTimestamp(Timestamp timestamp) {

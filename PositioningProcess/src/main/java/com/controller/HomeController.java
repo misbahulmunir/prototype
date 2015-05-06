@@ -25,7 +25,7 @@ public class HomeController {
 		UpdateBalance ub = new UpdateBalance();
 		ub.setBalance(new BigDecimal(1000000));
 		ub.setDebAmount(new BigDecimal(1000));
-		ub.setGroupname("merah");
+		ub.setGroupname("merah"); 
 		ub.setIdPos(0);
 		ub.setIsmustdone("true");
 		ub.setMaxRetry(5);

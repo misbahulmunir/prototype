@@ -42,7 +42,7 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 
 	private int retrycount;
 
-	private Timestamp timestamp;
+	private long timestamp;
 	
 	
 	public UpdateBalance() {
@@ -128,11 +128,11 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.retrycount = retrycount;
 	}
 
-	public Timestamp getTimestamp() {
+	public long getTimestamp() {
 		return this.timestamp;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 
