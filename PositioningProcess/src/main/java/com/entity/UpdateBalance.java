@@ -1,4 +1,4 @@
-package demo.entity;
+package com.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -42,7 +42,7 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 
 	private int retrycount;
 
-	private Timestamp timestamp;
+	private long timestamp;
 	
 	
 	public UpdateBalance() {
@@ -128,11 +128,11 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.retrycount = retrycount;
 	}
 
-	public Timestamp getTimestamp() {
+	public long getTimestamp() {
 		return this.timestamp;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public long setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 

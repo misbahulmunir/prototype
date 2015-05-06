@@ -1,4 +1,4 @@
-package demo.entity;
+package com.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
