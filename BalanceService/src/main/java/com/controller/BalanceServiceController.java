@@ -18,6 +18,7 @@ public class BalanceServiceController {
 	@RequestMapping(value="/PutDataIntoQueue", method=RequestMethod.POST)
 	@ResponseBody
 	public void putDataIntoQueue(@RequestBody UpdateBalance value) {
+		System.out.println(value.getGroupname());
 		jms.sendObjectMessage(value, "TEST", value.getGroupname());
 	}
 }
