@@ -41,22 +41,23 @@ public class DistributedJdgModulJmsListener {
 	public String CreateListener(ArrayList<Thread> threadList) {
 		
 		try {
-			testRecevier(threadList);
-			testRecevier(threadList);
+			testReceiver(threadList);
+			testReceiver(threadList);
+			testReceiver(threadList);
+			testReceiver(threadList);
+			testReceiver(threadList);
 			for (Thread thread : threadList) {
 				thread.start();
 			}
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "hahah";
 	}
 
-	public void testRecevier(List<Thread> threadList) throws JMSException {
-		Thread thread = new Thread(new JmsListenerRunnable(cacheManager, cf));
+	public void testReceiver(List<Thread> threadList) throws JMSException {
+		Thread thread = new Thread(new RedJmsListener(cacheManager, cf, "JMSCorrelationID = 'merah'","merah"));
 		threadList.add(thread);
-
 	}
 
 }
