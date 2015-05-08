@@ -10,36 +10,43 @@ import java.math.BigDecimal;
  * The persistent class for the update_balance database table.
  * 
  */
-
+//@Entity
+//@Table(name="update_balance")
+//@NamedQuery(name="UpdateBalance.findAll", query="SELECT u FROM UpdateBalance u")
 public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private String debitAcount;
+	
+	private String creditAcount;
 
 	private BigDecimal balance;
 
-
+//	@Column(name="deb_amount")
 	private BigDecimal debAmount;
 
 	private String groupname;
 
-
+//	@Column(name="id_pos")
 	private int idPos;
 
-	
+//	@Lob
+//	@Column(name="id_refrence")
 	private String idRefrence;
 
 	private String ismustdone;
 
+//	@Column(name="kredit_amount")
+	private BigDecimal creditAmount;
 
-	private BigDecimal kreditAmount;
-
-
+//	@Column(name="max_retry")
 	private int maxRetry;
 
 	private String priority;
 
 	private int retrycount;
 
-	private Timestamp timestamp;
+	private long timestamp;
 	
 	
 	public UpdateBalance() {
@@ -93,12 +100,12 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.ismustdone = ismustdone;
 	}
 
-	public BigDecimal getKreditAmount() {
-		return this.kreditAmount;
+	public BigDecimal getCreditAmount() {
+		return this.creditAmount;
 	}
 
-	public void setKreditAmount(BigDecimal kreditAmount) {
-		this.kreditAmount = kreditAmount;
+	public void setCreditAmount(BigDecimal creditAmount) {
+		this.creditAmount = creditAmount;
 	}
 
 	public int getMaxRetry() {
@@ -125,12 +132,29 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.retrycount = retrycount;
 	}
 
-	public Timestamp getTimestamp() {
+	public long getTimestamp() {
 		return this.timestamp;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 
+	public String getDebitAcount() {
+		return debitAcount;
+	}
+
+	public void setDebitAcount(String debitAcount) {
+		this.debitAcount = debitAcount;
+	}
+
+	public String getCreditAcount() {
+		return creditAcount;
+	}
+
+	public void setCreditAcount(String creditAcount) {
+		this.creditAcount = creditAcount;
+	}
+	
+	
 }

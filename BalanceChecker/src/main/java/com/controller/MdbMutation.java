@@ -20,10 +20,11 @@ public class MdbMutation {
          threadList=new ArrayList<Thread>();
          return threadList;
     }
+    
 	@JmsListener(destination="MutationQueue")
 	public void receiveMessage(UpdateBalance balanceObject)
 	{
-		 Thread thread= new Thread(new BalanceChekerThreadRunnable(cacheManager.getCache("balance"), balanceObject));
+		 Thread thread= new Thread(new BalanceChekerThreadRunnable(cacheManager.getCache("mutation"), balanceObject));
 		 thread.start();
 	     threadList.add(thread);
 	}

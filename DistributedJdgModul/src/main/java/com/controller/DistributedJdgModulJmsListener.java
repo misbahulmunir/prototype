@@ -39,7 +39,7 @@ public class DistributedJdgModulJmsListener {
 
 	@Bean
 	public String CreateListener(ArrayList<Thread> threadList) {
-		
+		cacheManager.addListener(new DatagridListener(cacheManager));
 		try {
 			testReceiver(threadList);
 			testReceiver(threadList);
