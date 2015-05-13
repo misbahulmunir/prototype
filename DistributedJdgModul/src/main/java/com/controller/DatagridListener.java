@@ -36,6 +36,7 @@ import org.infinispan.notifications.cachelistener.event.TopologyChangedEvent;
 import org.jboss.logging.Logger;
 
 import com.entity.UpdateBalance;
+import com.telkomsigma.framework.core.integration.jms.JMSProducer;
 
 /**
  * An Infinispan listener that simply logs cache entries being created and
@@ -49,23 +50,25 @@ public class DatagridListener {
 
    private Logger log = Logger.getLogger(DatagridListener.class);
    private Cache<String, Object> cacheActivePositioning;
-   public DatagridListener(EmbeddedCacheManager cacheManager) {
+   private JMSProducer jmsProducer;
+   public DatagridListener(EmbeddedCacheManager cacheManager, JMSProducer jmsProducer) {
 	// TODO Auto-generated constructor stub
       this.cacheActivePositioning=cacheManager.getCache("active_positioning");
+      this.jmsProducer=jmsProducer;
    }
    @CacheEntryCreated
    public void observeAdd(CacheEntryCreatedEvent<Object, Object> event) {
       if (event.isPre())
          return;
-      if(cacheActivePositioning.entrySet().size()>0)
-      {
+      System.out.println("masuk gan=======================================");
         if(!cacheActivePositioning.containsKey((String)event.getKey()))
           {
         	if(((UpdateBalance)cacheActivePositioning.get((String)event.getKey())).getTimestamp()<((UpdateBalance)event.getValue()).getTimestamp())
                 cacheActivePositioning.remove((String)event.getKey());  
+        	System.out.println("masuk gan=======================================");
             cacheActivePositioning.put((String)event.getKey(),((UpdateBalance)event).getTimestamp());
+            jmsProducer.sendObjectMessage(event.getValue(),"queu-active-positioning", "");
           }
-      }
       log.infof("Cache entry %s added in cache %s", event.getKey(), event.getCache());
    }
 

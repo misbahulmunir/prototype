@@ -2,7 +2,7 @@ package com.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.math.BigInteger;
 import java.math.BigDecimal;
 
 
@@ -10,36 +10,41 @@ import java.math.BigDecimal;
  * The persistent class for the update_balance database table.
  * 
  */
-//@Entity
-//@Table(name="update_balance")
-//@NamedQuery(name="UpdateBalance.findAll", query="SELECT u FROM UpdateBalance u")
+/*@Entity
+@Table(name="update_balance")
+@NamedQuery(name="UpdateBalance.findAll", query="SELECT u FROM UpdateBalance u")*/
 public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	private String debitAcount;
-	
-	private String creditAcount;
+
+	/*@Id
+	@Column(name="id_pos")*/
+	private int idPos;
 
 	private BigDecimal balance;
 
-//	@Column(name="deb_amount")
+/*	@Lob
+	@Column(name="credit_acount")*/
+	private String creditAcount;
+
+	/*@Column(name="deb_amount")*/
 	private BigDecimal debAmount;
+
+/*	@Lob
+	@Column(name="debit_acount")*/
+	private String debitAcount;
 
 	private String groupname;
 
-//	@Column(name="id_pos")
-	private int idPos;
-
-//	@Lob
-//	@Column(name="id_refrence")
+	/*@Lob
+	@Column(name="id_refrence")*/
 	private String idRefrence;
 
 	private String ismustdone;
+/*
+	@Column(name="kredit_amount")*/
+	private BigDecimal kreditAmount;
 
-//	@Column(name="kredit_amount")
-	private BigDecimal creditAmount;
-
-//	@Column(name="max_retry")
+/*	@Column(name="max_retry")*/
 	private int maxRetry;
 
 	private String priority;
@@ -47,9 +52,16 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private int retrycount;
 
 	private long timestamp;
-	
-	
+
 	public UpdateBalance() {
+	}
+
+	public int getIdPos() {
+		return this.idPos;
+	}
+
+	public void setIdPos(int idPos) {
+		this.idPos = idPos;
 	}
 
 	public BigDecimal getBalance() {
@@ -60,6 +72,14 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.balance = balance;
 	}
 
+	public String getCreditAcount() {
+		return this.creditAcount;
+	}
+
+	public void setCreditAcount(String creditAcount) {
+		this.creditAcount = creditAcount;
+	}
+
 	public BigDecimal getDebAmount() {
 		return this.debAmount;
 	}
@@ -68,20 +88,20 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.debAmount = debAmount;
 	}
 
+	public String getDebitAcount() {
+		return this.debitAcount;
+	}
+
+	public void setDebitAcount(String debitAcount) {
+		this.debitAcount = debitAcount;
+	}
+
 	public String getGroupname() {
 		return this.groupname;
 	}
 
 	public void setGroupname(String groupname) {
 		this.groupname = groupname;
-	}
-
-	public int getIdPos() {
-		return this.idPos;
-	}
-
-	public void setIdPos(int idPos) {
-		this.idPos = idPos;
 	}
 
 	public String getIdRefrence() {
@@ -100,12 +120,12 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.ismustdone = ismustdone;
 	}
 
-	public BigDecimal getCreditAmount() {
-		return this.creditAmount;
+	public BigDecimal getKreditAmount() {
+		return this.kreditAmount;
 	}
 
-	public void setCreditAmount(BigDecimal creditAmount) {
-		this.creditAmount = creditAmount;
+	public void setKreditAmount(BigDecimal kreditAmount) {
+		this.kreditAmount = kreditAmount;
 	}
 
 	public int getMaxRetry() {
@@ -140,21 +160,4 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.timestamp = timestamp;
 	}
 
-	public String getDebitAcount() {
-		return debitAcount;
-	}
-
-	public void setDebitAcount(String debitAcount) {
-		this.debitAcount = debitAcount;
-	}
-
-	public String getCreditAcount() {
-		return creditAcount;
-	}
-
-	public void setCreditAcount(String creditAcount) {
-		this.creditAcount = creditAcount;
-	}
-	
-	
 }

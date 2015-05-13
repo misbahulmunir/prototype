@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 
@@ -14,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import com.telkomsigma.framework.core.integration.jms.JMSProducer;
+
 
 @Configuration
 public class DistributedJdgModulJmsListener {
@@ -22,6 +25,8 @@ public class DistributedJdgModulJmsListener {
 	EmbeddedCacheManager cacheManager;
 	@Autowired
 	ConnectionFactory cf;
+	@Autowired
+	JMSProducer jms;
 
 	/*
 	 * @JmsListener(containerFactory =
@@ -39,7 +44,7 @@ public class DistributedJdgModulJmsListener {
 
 	@Bean
 	public String CreateListener(ArrayList<Thread> threadList) {
-		cacheManager.addListener(new DatagridListener(cacheManager));
+
 		try {
 			testReceiver(threadList);
 			testReceiver(threadList);
@@ -56,7 +61,7 @@ public class DistributedJdgModulJmsListener {
 	}
 
 	public void testReceiver(List<Thread> threadList) throws JMSException {
-		Thread thread = new Thread(new RedJmsListener(cacheManager, cf, "JMSCorrelationID = 'merah'","merah"));
+		Thread thread = new Thread(new RedJmsListener(cacheManager, cf, "JMSCorrelationID = 'merah'","merah",jms));
 		threadList.add(thread);
 	}
 

@@ -78,7 +78,7 @@ public abstract class IUpdateBalance {
 		return 0;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(long timestamp) {
 	}
 	
 	public String getCreditAcount() {
@@ -87,4 +87,13 @@ public abstract class IUpdateBalance {
 
 	public void setCreditAcount(String creditAcount) {
 	}
+	
+	public String getDebitAcount() {
+		return null;
+	}
+
+	public void setDebitAcount(String debitAcount) {
+	}
+	
+	
 }
