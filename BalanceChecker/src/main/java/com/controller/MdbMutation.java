@@ -30,13 +30,14 @@ public class MdbMutation {
          return threadList;
     }
     
-	@JmsListener(destination="queu-active-positioning")
+	@JmsListener(destination="queu-active-positioning", selector="JMSCorrelationID = 'position'")
 	public void receiveMessage(UpdateBalance balanceObject)
-	{
-		System.out.println("masuk"+balanceObject.getGroupname());
-		 Thread thread= new Thread(new BalanceChekerThreadRunnable((Cache<Object, Object>) cacheManager.getCache("mutation").get(balanceObject.getDebitAcount()),producer,client));
+	{    System.out.println("debit account="+balanceObject.getDebitAcount());
+		 System.out.println("masuk"+balanceObject.getGroupname());
+		 Thread thread= new Thread(new BalanceChekerThreadRunnable( cacheManager.getCache(balanceObject.getDebitAcount()),producer,client));
+		 System.out.println("=======thread start=======");
 		 thread.start();
-	     threadList.add(thread);
+	     //threadList.add(thread);
 	}
 	
 }

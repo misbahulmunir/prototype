@@ -19,6 +19,7 @@ public class BalanceServiceController {
 	@ResponseBody
 	public void putDataIntoQueue(@RequestBody UpdateBalance value) {
 		System.out.println(value.getGroupname());
-		jms.sendObjectMessage(value, "TEST", value.getGroupname());
+		System.out.println(value.getKreditAmount());
+		jms.sendObjectMessage("TEST",value,value.getGroupname());
 	}
 }

@@ -16,35 +16,37 @@ import java.math.BigDecimal;
 public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/*@Id
-	@Column(name="id_pos")*/
+	
+	/*@Column(name="id_pos")*/
 	private int idPos;
 
 	private BigDecimal balance;
 
-/*	@Lob
+	/*@Lob
 	@Column(name="credit_acount")*/
 	private String creditAcount;
-
+	
+	
 	/*@Column(name="deb_amount")*/
 	private BigDecimal debAmount;
-
-/*	@Lob
+	
+	/*@Id
+	@Lob
 	@Column(name="debit_acount")*/
 	private String debitAcount;
 
 	private String groupname;
 
-	/*@Lob
+/*	@Lob
 	@Column(name="id_refrence")*/
 	private String idRefrence;
 
 	private String ismustdone;
-/*
-	@Column(name="kredit_amount")*/
+
+	/*@Column(name="kredit_amount")*/
 	private BigDecimal kreditAmount;
 
-/*	@Column(name="max_retry")*/
+	/*@Column(name="max_retry")*/
 	private int maxRetry;
 
 	private String priority;

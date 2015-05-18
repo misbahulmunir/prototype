@@ -63,6 +63,14 @@ public class DistributedJdgModulJmsListener {
 	public void testReceiver(List<Thread> threadList) throws JMSException {
 		Thread thread = new Thread(new RedJmsListener(cacheManager, cf, "JMSCorrelationID = 'merah'","merah",jms));
 		threadList.add(thread);
+		thread = new Thread(new BlueJmsListener(cacheManager, cf, "JMSCorrelationID = 'biru'","biru",jms));
+		threadList.add(thread);
+		thread = new Thread(new BlackJmsListener(cacheManager, cf, "JMSCorrelationID = 'hitam'","hitam",jms));
+		threadList.add(thread);
+		thread = new Thread(new YellowJmsListener(cacheManager, cf, "JMSCorrelationID = 'kuning'","kuning",jms));
+		threadList.add(thread);
+		thread = new Thread(new PinkJmsListener(cacheManager, cf, "JMSCorrelationID = 'pink'","pink",jms));
+		threadList.add(thread);
 	}
 
 }

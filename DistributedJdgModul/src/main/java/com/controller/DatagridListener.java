@@ -32,9 +32,9 @@ import org.infinispan.notifications.cachelistener.annotation.TopologyChanged;
 import org.infinispan.notifications.cachelistener.event.CacheEntryCreatedEvent;
 import org.infinispan.notifications.cachelistener.event.CacheEntryModifiedEvent;
 import org.infinispan.notifications.cachelistener.event.CacheEntryRemovedEvent;
+import org.infinispan.notifications.cachelistener.event.Event;
 import org.infinispan.notifications.cachelistener.event.TopologyChangedEvent;
-import org.jboss.logging.Logger;
-
+import org.infinispan.notifications.cachemanagerlistener.annotation.CacheStarted;
 import com.entity.UpdateBalance;
 import com.telkomsigma.framework.core.integration.jms.JMSProducer;
 
@@ -48,51 +48,53 @@ import com.telkomsigma.framework.core.integration.jms.JMSProducer;
 @Listener
 public class DatagridListener {
 
-   private Logger log = Logger.getLogger(DatagridListener.class);
-   private Cache<String, Object> cacheActivePositioning;
+ 
+   private Cache<Integer, Object> cacheActivePositioning;
    private JMSProducer jmsProducer;
    public DatagridListener(EmbeddedCacheManager cacheManager, JMSProducer jmsProducer) {
 	// TODO Auto-generated constructor stub
-      this.cacheActivePositioning=cacheManager.getCache("active_positioning");
+      this.cacheActivePositioning=cacheManager.getCache("active-positioning");
       this.jmsProducer=jmsProducer;
    }
+  
    @CacheEntryCreated
-   public void observeAdd(CacheEntryCreatedEvent<Object, Object> event) {
+   public void observeAdd(CacheEntryCreatedEvent<Integer, Object> event) {
       if (event.isPre())
          return;
-      System.out.println("masuk gan=======================================");
-        if(!cacheActivePositioning.containsKey((String)event.getKey()))
+      
+      System.out.println("masuk add gan=======================================");
+        if(!cacheActivePositioning.containsKey(event.getKey()))
           {
+        	/*
         	if(((UpdateBalance)cacheActivePositioning.get((String)event.getKey())).getTimestamp()<((UpdateBalance)event.getValue()).getTimestamp())
-                cacheActivePositioning.remove((String)event.getKey());  
-        	System.out.println("masuk gan=======================================");
-            cacheActivePositioning.put((String)event.getKey(),((UpdateBalance)event).getTimestamp());
-            jmsProducer.sendObjectMessage(event.getValue(),"queu-active-positioning", "");
+                cacheActivePositioning.remove((String)event.getKey());  */
+        	
+            cacheActivePositioning.put(event.getKey(),((UpdateBalance)event.getValue()).getTimestamp());
+            jmsProducer.sendObjectMessage("queu-active-positioning",event.getValue(),"position");
           }
-      log.infof("Cache entry %s added in cache %s", event.getKey(), event.getCache());
    }
 
    @CacheEntryModified
-   public void observeUpdate(CacheEntryModifiedEvent<Object, Object> event) {
+   public void observeUpdate(CacheEntryModifiedEvent<Integer, Object> event) {
       if (event.isPre())
          return;
 
-      log.infof("Cache entry %s = %s modified in cache %s", event.getKey(), event.getValue(), event.getCache());
+    
    }
 
    @CacheEntryRemoved
-   public void observeRemove(CacheEntryRemovedEvent<Object, Object> event) {
+   public void observeRemove(CacheEntryRemovedEvent<Integer, Object> event) {
       if (event.isPre())
          return;
 
-      log.infof("Cache entry %s removed in cache %s", event.getKey(), event.getCache());
+     
    }
 
    @TopologyChanged
-   public void observeTopologyChange(TopologyChangedEvent<Object, Object> event) {
+   public void observeTopologyChange(TopologyChangedEvent<Integer, Object> event) {
       if (event.isPre())
          return;
 
-      log.infof("Cache %s topology changed, new membership is %s", event.getCache().getName(), event.getConsistentHashAtEnd().getMembers());
+      
    }
 }
