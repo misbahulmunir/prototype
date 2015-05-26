@@ -1,7 +1,5 @@
 package com.controller;
 
-import javassist.expr.NewArray;
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -10,10 +8,11 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 
-import org.infinispan.Cache;
+import org.slf4j.LoggerFactory;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.slf4j.Logger;
 
 import com.entity.UpdateBalance;
 import com.telkomsigma.framework.core.integration.jms.JMSProducer;
@@ -25,7 +24,7 @@ public abstract class JmsListenerRunnable implements Runnable {
 	private String selector;
 	private String cacheName;
 	private JMSProducer jmsProducer;
-
+    private Logger log;
 	public JmsListenerRunnable(EmbeddedCacheManager cacheManager,
 			ConnectionFactory cf, String selector, String cacheName,
 			JMSProducer jmsProducer) {
@@ -34,13 +33,13 @@ public abstract class JmsListenerRunnable implements Runnable {
 		this.selector = selector;
 		this.cacheName = cacheName;
 		this.jmsProducer = jmsProducer;
+		this.log=LoggerFactory.getLogger(JmsListenerRunnable.class);
 	}
 
 	@Override
 	public void run() {
 		try {
-
-			System.out.println("run---------------------");
+			log.info("run---------------------");
 			Connection connection = cf.createConnection();
 			Session session = connection.createSession();
 			Destination destination = session.createQueue("TEST");
@@ -54,23 +53,18 @@ public abstract class JmsListenerRunnable implements Runnable {
 				System.out.println(balance.getGroupname());
 				cacheManager.getCache(this.cacheName).put(balance.getIdPos(),
 						balance);
-				if (!cacheManager.getCache("mutation").containsKey(
-						balance.getDebitAcount())) {
+				if (!cacheManager.cacheExists(balance.getIdBroker())) {
 					cacheManager.defineConfiguration(balance.getDebitAcount(),
-							new ConfigurationBuilder().locking().clustering()
+							new ConfigurationBuilder().clustering()
 									.cacheMode(CacheMode.REPL_SYNC).build());
-					cacheManager.getCache(balance.getDebitAcount())
+					cacheManager.getCache(balance.getIdBroker())
 							.addListener(
 									new DatagridListener(cacheManager,
 											jmsProducer));
-				/*	cacheManager.getCache("mutation").put(
-							balance.getDebitAcount(),
-							cacheManager.getCache(balance.getDebitAcount()));*/
 				}
-				cacheManager.getCache(balance.getDebitAcount()).put(
+				log.info("id pos is %i",balance.getIdPos());
+				cacheManager.getCache(balance.getIdBroker()).put(
 						balance.getIdPos(), balance);
-            /* session.close();
-             connection.close();*/
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();

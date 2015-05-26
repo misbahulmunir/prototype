@@ -1,14 +1,2 @@
-18:00:28.095 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[text/html],custom=[]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest)
-18:00:28.173 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
-18:00:28.173 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
-18:00:28.277 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
-18:00:28.519 [main] WARN  o.s.b.a.batch.BasicBatchConfigurer - JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
-18:00:28.534 [main] INFO  o.s.b.c.r.s.JobRepositoryFactoryBean - No database type set, using meta data indicating: HSQL
-18:00:28.787 [main] INFO  o.s.b.c.l.support.SimpleJobLauncher - No TaskExecutor has been set, defaulting to synchronous executor.
-18:00:28.899 [main] INFO  o.s.jdbc.datasource.init.ScriptUtils - Executing SQL script from class path resource [org/springframework/batch/core/schema-hsqldb.sql]
-18:00:28.914 [main] INFO  o.s.jdbc.datasource.init.ScriptUtils - Executed SQL script from class path resource [org/springframework/batch/core/schema-hsqldb.sql] in 14 ms.
-18:00:29.299 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
-18:00:29.379 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
-18:00:29.594 [main] INFO  o.s.b.c.e.u.UndertowEmbeddedServletContainer - Undertow started on port(s) 8020 (http)
-18:00:29.596 [main] INFO  o.s.b.a.b.JobLauncherCommandLineRunner - Running default command line with: []
-18:00:29.598 [main] INFO  com.BalanceCheckerApplication - Started BalanceCheckerApplication in 25.809 seconds (JVM running for 26.904)
+19:24:01.957 [DefaultMessageListenerContainer-1] INFO  o.i.r.t.jgroups.JGroupsTransport - ISPN000079: Cache local address is repl-61451, physical addresses are [fe80:0:0:0:f03e:6111:9cd2:d92d%4:63881]
+19:24:01.979 [DefaultMessageListenerContainer-1] INFO  o.i.f.GlobalComponentRegistry - ISPN000128: Infinispan version: Infinispan 'Infinium' 6.1.0.Final-redhat-4

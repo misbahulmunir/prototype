@@ -35,6 +35,9 @@ import org.infinispan.notifications.cachelistener.event.CacheEntryRemovedEvent;
 import org.infinispan.notifications.cachelistener.event.Event;
 import org.infinispan.notifications.cachelistener.event.TopologyChangedEvent;
 import org.infinispan.notifications.cachemanagerlistener.annotation.CacheStarted;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.entity.UpdateBalance;
 import com.telkomsigma.framework.core.integration.jms.JMSProducer;
 
@@ -48,53 +51,63 @@ import com.telkomsigma.framework.core.integration.jms.JMSProducer;
 @Listener
 public class DatagridListener {
 
- 
-   private Cache<Integer, Object> cacheActivePositioning;
-   private JMSProducer jmsProducer;
-   public DatagridListener(EmbeddedCacheManager cacheManager, JMSProducer jmsProducer) {
-	// TODO Auto-generated constructor stub
-      this.cacheActivePositioning=cacheManager.getCache("active-positioning");
-      this.jmsProducer=jmsProducer;
-   }
-  
-   @CacheEntryCreated
-   public void observeAdd(CacheEntryCreatedEvent<Integer, Object> event) {
-      if (event.isPre())
-         return;
-      
-      System.out.println("masuk add gan=======================================");
-        if(!cacheActivePositioning.containsKey(event.getKey()))
-          {
-        	/*
-        	if(((UpdateBalance)cacheActivePositioning.get((String)event.getKey())).getTimestamp()<((UpdateBalance)event.getValue()).getTimestamp())
-                cacheActivePositioning.remove((String)event.getKey());  */
-        	
-            cacheActivePositioning.put(event.getKey(),((UpdateBalance)event.getValue()).getTimestamp());
-            jmsProducer.sendObjectMessage("queu-active-positioning",event.getValue(),"position");
-          }
-   }
+	private Cache<String, Object> cacheActivePositioning;
+	private JMSProducer jmsProducer;
+	private Logger log = LoggerFactory.getLogger(DatagridListener.class);
 
-   @CacheEntryModified
-   public void observeUpdate(CacheEntryModifiedEvent<Integer, Object> event) {
-      if (event.isPre())
-         return;
+	public DatagridListener(EmbeddedCacheManager cacheManager,
+			JMSProducer jmsProducer) {
+		// TODO Auto-generated constructor stub
+		this.cacheActivePositioning = cacheManager
+				.getCache("active-positioning");
+		this.jmsProducer = jmsProducer;
+	}
 
-    
-   }
+	@CacheEntryCreated
+	public void observeAdd(CacheEntryCreatedEvent<Integer, Object> event) {
+		if (event.isPre())
+			return;
 
-   @CacheEntryRemoved
-   public void observeRemove(CacheEntryRemovedEvent<Integer, Object> event) {
-      if (event.isPre())
-         return;
+		log.info("======================masuk add=======================================");
+		if (cacheActivePositioning.containsKey(((UpdateBalance) event
+				.getValue()).getIdBroker())) {
+			if (((UpdateBalance) event.getValue()).getTimestamp() > (Long) cacheActivePositioning
+					.get(((UpdateBalance) event.getValue()).getIdBroker())) {
+				log.info("cache removed");
+				cacheActivePositioning
+						.remove(((UpdateBalance) event.getValue())
+								.getIdBroker());
+			}
+		} else if (!cacheActivePositioning.containsKey(((UpdateBalance) event
+				.getValue()).getIdBroker())) {
+			cacheActivePositioning.putIfAbsent(
+					((UpdateBalance) event.getValue()).getIdBroker(),
+					((UpdateBalance) event.getValue()).getTimestamp());
+			jmsProducer.sendObjectMessage("queu-active-positioning",
+					event.getValue(), "position");
+		}
 
-     
-   }
+	}
 
-   @TopologyChanged
-   public void observeTopologyChange(TopologyChangedEvent<Integer, Object> event) {
-      if (event.isPre())
-         return;
+	@CacheEntryModified
+	public void observeUpdate(CacheEntryModifiedEvent<Integer, Object> event) {
+		if (event.isPre())
+			return;
 
-      
-   }
+	}
+
+	@CacheEntryRemoved
+	public void observeRemove(CacheEntryRemovedEvent<Integer, Object> event) {
+		if (event.isPre())
+			return;
+
+	}
+
+	@TopologyChanged
+	public void observeTopologyChange(
+			TopologyChangedEvent<Integer, Object> event) {
+		if (event.isPre())
+			return;
+
+	}
 }

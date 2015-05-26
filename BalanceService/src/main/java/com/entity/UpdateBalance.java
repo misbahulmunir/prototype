@@ -5,48 +5,46 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the update_balance database table.
  * 
  */
-/*@Entity
-@Table(name="update_balance")
-@NamedQuery(name="UpdateBalance.findAll", query="SELECT u FROM UpdateBalance u")*/
+@Entity
+@Table(name = "update_balance")
+@NamedQuery(name = "UpdateBalance.findAll", query = "SELECT u FROM UpdateBalance u")
 public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
-	/*@Column(name="id_pos")*/
+	@Column(name = "id_pos")
 	private int idPos;
 
 	private BigDecimal balance;
 
-	/*@Lob
-	@Column(name="credit_acount")*/
-	private String creditAcount;
-	
-	
-	/*@Column(name="deb_amount")*/
-	private BigDecimal debAmount;
-	
-	/*@Id
 	@Lob
-	@Column(name="debit_acount")*/
+	@Column(name = "credit_acount")
+	private String creditAcount;
+
+	@Column(name = "deb_amount")
+	private BigDecimal debAmount;
+
+	
+	@Lob
+	@Column(name = "debit_acount")
 	private String debitAcount;
 
 	private String groupname;
 
-/*	@Lob
-	@Column(name="id_refrence")*/
+	@Id
+	@Lob
+	@Column(name = "id_refrence")
 	private String idRefrence;
 
 	private String ismustdone;
 
-	/*@Column(name="kredit_amount")*/
+	@Column(name = "kredit_amount")
 	private BigDecimal kreditAmount;
 
-	/*@Column(name="max_retry")*/
+	@Column(name = "max_retry")
 	private int maxRetry;
 
 	private String priority;
@@ -54,6 +52,10 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 	private int retrycount;
 
 	private long timestamp;
+	
+	@Lob
+	@Column(name = "id_broker")
+	private String idBroker;
 
 	public UpdateBalance() {
 	}
@@ -162,4 +164,25 @@ public class UpdateBalance extends IUpdateBalance implements Serializable {
 		this.timestamp = timestamp;
 	}
 
+	public String getIdBroker() {
+		return idBroker;
+	}
+
+	public void setIdBroker(String idBroker) {
+		this.idBroker = idBroker;
+	}
+
+	@Override
+	public String toString() {
+		return "UpdateBalance [idPos=" + idPos + ", balance=" + balance
+				+ ", creditAcount=" + creditAcount + ", debAmount=" + debAmount
+				+ ", debitAcount=" + debitAcount + ", groupname=" + groupname
+				+ ", idRefrence=" + idRefrence + ", ismustdone=" + ismustdone
+				+ ", kreditAmount=" + kreditAmount + ", maxRetry=" + maxRetry
+				+ ", priority=" + priority + ", retrycount=" + retrycount
+				+ ", timestamp=" + timestamp + ", idBroker=" + idBroker + "]";
+	}
+
+	
+	
 }

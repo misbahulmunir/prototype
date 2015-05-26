@@ -25,6 +25,7 @@
 	</properties>
 
 	<dependencies>
+	 
 		<dependency>
 			<groupId>com.telkomsigma.framework</groupId>
 			<artifactId>framework-core-api</artifactId>

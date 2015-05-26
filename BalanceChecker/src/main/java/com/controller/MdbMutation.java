@@ -32,9 +32,7 @@ public class MdbMutation {
     
 	@JmsListener(destination="queu-active-positioning", selector="JMSCorrelationID = 'position'")
 	public void receiveMessage(UpdateBalance balanceObject)
-	{    System.out.println("debit account="+balanceObject.getDebitAcount());
-		 System.out.println("masuk"+balanceObject.getGroupname());
-		 Thread thread= new Thread(new BalanceChekerThreadRunnable( cacheManager.getCache(balanceObject.getDebitAcount()),producer,client));
+	{    Thread thread= new Thread(new BalanceChekerThreadRunnable( cacheManager.getCache(balanceObject.getDebitAcount()),producer,client));
 		 System.out.println("=======thread start=======");
 		 thread.start();
 	     //threadList.add(thread);

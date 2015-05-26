@@ -6,10 +6,15 @@ import java.util.List;
 
 
 
+
+
+
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,12 +27,11 @@ import com.telkomsigma.framework.core.integration.jms.JMSProducer;
 public class DistributedJdgModulJmsListener {
 
 	@Autowired
-	EmbeddedCacheManager cacheManager;
+	private EmbeddedCacheManager cacheManager;
 	@Autowired
-	ConnectionFactory cf;
+	private ConnectionFactory cf;
 	@Autowired
-	JMSProducer jms;
-
+	private JMSProducer jms;
 	/*
 	 * @JmsListener(containerFactory =
 	 * "jmsListenerContainerFactory",destination=
@@ -38,7 +42,6 @@ public class DistributedJdgModulJmsListener {
 	 */
 	@Bean
 	public ArrayList<Thread> threadList() {
-
 		return new ArrayList<Thread>();
 	}
 

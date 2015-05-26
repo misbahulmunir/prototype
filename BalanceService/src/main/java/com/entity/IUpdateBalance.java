@@ -94,6 +94,11 @@ public abstract class IUpdateBalance {
 
 	public void setDebitAcount(String debitAcount) {
 	}
-	
+	public String getIdBroker() {
+		return null;
+	}
+
+	public void setIdBroker(String idBroker) {
+	}
 	
 }
